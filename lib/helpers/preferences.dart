@@ -1,19 +1,22 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
-  static bool _darkmode = false;
-  static late SharedPreferences _prefs;
+  static SharedPreferences? _prefs;
 
-  static Future<void> initShared() async {
+  static const _keyDarkMode = 'darkMode';
+
+  // Inicializa SharedPreferences
+  static Future initShared() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
+  // Obtiene el estado de DarkMode
   static bool get darkmode {
-    return _prefs.getBool('darkmode') ?? _darkmode;
+    return _prefs?.getBool(_keyDarkMode) ?? false;  // Devuelve false si no hay valor guardado
   }
 
+  // Guarda el estado de DarkMode
   static set darkmode(bool value) {
-    _darkmode = value;
-    _prefs.setBool('darkmode', value);
+    _prefs?.setBool(_keyDarkMode, value);
   }
 }
