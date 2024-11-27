@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_base/helpers/preferences.dart';
 import 'package:flutter_application_base/widgets/HoverProfile.dart';
+import 'popular_movies_screen.dart';
+
 
 // Estructura base para todas las pantallas
 class BaseScreen extends StatelessWidget {
@@ -174,19 +176,6 @@ class HomeScreen extends StatelessWidget {
 }
 
 // Pantallas individuales
-class PopularMoviesScreen extends StatelessWidget {
-  final Function(bool) onThemeChanged;
-
-  const PopularMoviesScreen({super.key, required this.onThemeChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    return BaseScreen(
-      onThemeChanged: onThemeChanged,
-      body: const Center(child: Text('Aquí van las películas populares')),
-    );
-  }
-}
 
 class TrendingMoviesScreen extends StatelessWidget {
   final Function(bool) onThemeChanged;
