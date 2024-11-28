@@ -11,6 +11,31 @@ class MovieDetailScreen extends StatefulWidget {
 
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   double _rating = 0; // Calificación inicial de 0
+  TextEditingController _commentController =
+      TextEditingController(); // Controlador para el comentario
+
+  // Función para simular el envío del comentario
+  void _sendComment() {
+    if (_commentController.text.isNotEmpty) {
+      // Mostrar un Snackbar indicando que el comentario se ha enviado
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Comentario enviado')),
+      );
+
+      // Limpiar el campo de texto
+      _commentController.clear();
+
+      // Limpiar la calificación
+      setState(() {
+        _rating = 0;
+      });
+    } else {
+      // Si no se ha escrito un comentario, muestra un mensaje de advertencia
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Por favor, escribe un comentario')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +109,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       children: [
                         Expanded(
                           child: TextField(
+                            controller:
+                                _commentController, // Asigna el controlador al TextField
                             maxLines: 1,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -99,9 +126,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                         const SizedBox(width: 10),
                         // Botón para enviar comentario
                         ElevatedButton(
-                          onPressed: () {
-                            // Aquí va la lógica para enviar el comentario
-                          },
+                          onPressed:
+                              _sendComment, // Llama a la función _sendComment
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.cyan),
