@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_base/helpers/preferences.dart';
+import 'package:flutter_application_base/screens/actores_screen.dart';
 import 'package:flutter_application_base/widgets/HoverProfile.dart';
 import 'popular_movies_screen.dart';
-
 
 // Estructura base para todas las pantallas
 class BaseScreen extends StatelessWidget {
   final Widget body; // Contenido específico de la pantalla
   final Function(bool) onThemeChanged; // Función para el cambio de tema
 
-  const BaseScreen({super.key, required this.body, required this.onThemeChanged});
+  const BaseScreen(
+      {super.key, required this.body, required this.onThemeChanged});
 
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-    final textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
+    final textColor =
+        brightness == Brightness.dark ? Colors.white : Colors.black;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.cyan,
+        backgroundColor:
+            brightness == Brightness.dark ? Colors.black : Colors.cyan,
         elevation: 0,
         title: const Text(
           'YOUFLIX',
@@ -29,14 +32,17 @@ class BaseScreen extends StatelessWidget {
         ),
       ),
       drawer: Drawer(
-        backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.cyan,
+        backgroundColor:
+            brightness == Brightness.dark ? Colors.black : Colors.cyan,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             Container(
               height: 80,
               decoration: BoxDecoration(
-                color: brightness == Brightness.dark ? Colors.black54 : Colors.cyan,
+                color: brightness == Brightness.dark
+                    ? Colors.black54
+                    : Colors.cyan,
               ),
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -58,7 +64,8 @@ class BaseScreen extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomeScreen(onThemeChanged: onThemeChanged),
+                    builder: (context) =>
+                        HomeScreen(onThemeChanged: onThemeChanged),
                   ),
                   (route) => false, // Remueve todas las rutas anteriores
                 );
@@ -103,28 +110,35 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-    final textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
+    final textColor =
+        brightness == Brightness.dark ? Colors.white : Colors.black;
 
     final profiles = [
       {
-        'image': 'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Películas+Populares',
+        'image':
+            'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Películas+Populares',
         'name': 'Películas Populares',
         'screen': PopularMoviesScreen(onThemeChanged: onThemeChanged),
       },
       {
-        'image': 'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Del+Momento',
+        'image':
+            'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Del+Momento',
         'name': 'Películas del Momento',
         'screen': TrendingMoviesScreen(onThemeChanged: onThemeChanged),
       },
       {
-        'image': 'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Imágenes+Populares',
+        'image':
+            'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Imágenes+Populares',
         'name': 'Imágenes Populares',
         'screen': PopularImagesScreen(onThemeChanged: onThemeChanged),
       },
       {
-        'image': 'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Mejores+Actores',
+        'image':
+            'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Mejores+Actores',
         'name': 'Mejores Actores',
-        'screen': BestActorsScreen(onThemeChanged: onThemeChanged),
+        'screen': ActorsScreen(
+          onThemeChanged: onThemeChanged,
+        ),
       },
     ];
 
@@ -162,7 +176,8 @@ class HomeScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => profile['screen'] as Widget),
+                      MaterialPageRoute(
+                          builder: (context) => profile['screen'] as Widget),
                     );
                   },
                 );
@@ -201,20 +216,6 @@ class PopularImagesScreen extends StatelessWidget {
     return BaseScreen(
       onThemeChanged: onThemeChanged,
       body: const Center(child: Text('Aquí van las imágenes populares')),
-    );
-  }
-}
-
-class BestActorsScreen extends StatelessWidget {
-  final Function(bool) onThemeChanged;
-
-  const BestActorsScreen({super.key, required this.onThemeChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    return BaseScreen(
-      onThemeChanged: onThemeChanged,
-      body: const Center(child: Text('Aquí van los mejores actores')),
     );
   }
 }
