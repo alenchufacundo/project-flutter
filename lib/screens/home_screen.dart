@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_base/helpers/preferences.dart';
+import 'package:flutter_application_base/screens/clasic_movies_screen.dart';
 import 'package:flutter_application_base/widgets/HoverProfile.dart';
 import 'popular_movies_screen.dart';
 
@@ -118,8 +119,8 @@ class HomeScreen extends StatelessWidget {
       },
       {
         'image': 'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Imágenes+Populares',
-        'name': 'Imágenes Populares',
-        'screen': PopularImagesScreen(onThemeChanged: onThemeChanged),
+        'name': 'Clasicos del Cine',
+        'screen': ClassicMoviesScreen(onThemeChanged: onThemeChanged),
       },
       {
         'image': 'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Mejores+Actores',

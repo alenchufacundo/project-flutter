@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../widgets/populares_detail.dart'; // Importa la nueva pantalla de detalles
-import '../mocks/puntuados_mocks.dart'; // Datos mock
+import 'package:flutter_application_base/widgets/detail_classic.dart';
 
-class PopularMoviesScreen extends StatelessWidget {
+import '../mocks/classic_mocks.dart';
+
+class ClassicMoviesScreen extends StatelessWidget {
   final Function(bool) onThemeChanged;
 
-  const PopularMoviesScreen({super.key, required this.onThemeChanged});
+  const ClassicMoviesScreen({super.key, required this.onThemeChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class PopularMoviesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Películas Populares'),
+        title: const Text('Clasicos del Cine'),
         backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.cyan,
       ),
       body: ListView.builder(
@@ -42,7 +43,7 @@ class PopularMoviesScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MovieDetailScreen(movie: movie),
+                    builder: (context) => ClassicScreen(movie: movie),
                   ),
                 );
               },
@@ -51,5 +52,4 @@ class PopularMoviesScreen extends StatelessWidget {
         },
       ),
     );
-  }
-}
+  }}
