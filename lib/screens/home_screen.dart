@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_base/helpers/preferences.dart';
 import 'package:flutter_application_base/widgets/HoverProfile.dart';
 import 'popular_movies_screen.dart';
-
-
+import 'movie_detail_list_screen.dart'; 
 // Estructura base para todas las pantallas
 class BaseScreen extends StatelessWidget {
   final Widget body; // Contenido específico de la pantalla
@@ -112,10 +111,12 @@ class HomeScreen extends StatelessWidget {
         'screen': PopularMoviesScreen(onThemeChanged: onThemeChanged),
       },
       {
-        'image': 'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Del+Momento',
-        'name': 'Películas del Momento',
-        'screen': TrendingMoviesScreen(onThemeChanged: onThemeChanged),
+        'image':
+            'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Del+Momento',
+        'name': 'Detalle de peliculas',
+        'screen': MovieDetailListScreen(onThemeChanged: onThemeChanged),
       },
+      
       {
         'image': 'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Imágenes+Populares',
         'name': 'Imágenes Populares',
@@ -215,6 +216,21 @@ class BestActorsScreen extends StatelessWidget {
     return BaseScreen(
       onThemeChanged: onThemeChanged,
       body: const Center(child: Text('Aquí van los mejores actores')),
+    );
+  }
+}
+class MovieDetailScreen extends StatelessWidget {
+  final Function(bool) onThemeChanged;
+
+  const MovieDetailScreen({super.key, required this.onThemeChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseScreen(
+      onThemeChanged: onThemeChanged,
+      body: const Center(
+        child: Text('Aquí van los detalles de la película'),
+      ),
     );
   }
 }
