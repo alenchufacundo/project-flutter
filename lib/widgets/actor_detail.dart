@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'animated_card.dart'; // Asegúrate de importar el archivo del widget
 
 class ActorDetailScreen extends StatelessWidget {
   final Map<String, dynamic> actor;
@@ -15,22 +16,20 @@ class ActorDetailScreen extends StatelessWidget {
         title: Text(actor['name']),
         backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.cyan,
       ),
-      body: SingleChildScrollView(  // Aseguramos que la pantalla sea desplazable si el contenido es largo
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,  // Centrado verticalmente
-            crossAxisAlignment: CrossAxisAlignment.center,  // Centrado horizontalmente
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Imagen del actor centrada
               Center(
                 child: CircleAvatar(
-                  radius: 80,  // Hacemos la imagen un poco más grande
+                  radius: 80,
                   backgroundImage: NetworkImage(actor['image']),
                 ),
               ),
               const SizedBox(height: 16),
-              // Nombre del actor
               Text(
                 actor['name'],
                 style: TextStyle(
@@ -40,14 +39,12 @@ class ActorDetailScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              // Descripción del actor
               Text(
                 actor['description'],
                 style: TextStyle(fontSize: 16, color: textColor),
-                textAlign: TextAlign.center,  // Alineamos la descripción al centro
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              // Título de películas
               Text(
                 'Películas:',
                 style: TextStyle(
@@ -57,10 +54,9 @@ class ActorDetailScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              // Grid de películas (centrado)
               GridView.builder(
-                shrinkWrap: true, // Para que el GridView no ocupe espacio infinito
-                physics: NeverScrollableScrollPhysics(), // Evitar desplazamiento dentro del GridView
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -70,21 +66,9 @@ class ActorDetailScreen extends StatelessWidget {
                 ),
                 itemCount: actor['movies'].length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          actor['movies'][index],
-                          style: TextStyle(color: textColor),
-                          textAlign: TextAlign.center,  // Centrado de texto en la tarjeta
-                        ),
-                      ),
-                    ),
+                  return AnimatedCard(
+                    movieTitle: actor['movies'][index],
+                    textColor: textColor,
                   );
                 },
               ),
