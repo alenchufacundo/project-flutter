@@ -1,7 +1,7 @@
 const List<Map<String, dynamic>> actors = [
   {
     "id": 1,
-    "image": "https://example.com/actor1.jpg",
+    "image": "../../assets/images/actores/robert.png",
     "name": "Robert Downey Jr.",
     "description":
         "Actor reconocido por su papel como Tony Stark/Iron Man en el Universo Cinematográfico de Marvel.",
@@ -14,7 +14,7 @@ const List<Map<String, dynamic>> actors = [
   },
   {
     "id": 2,
-    "image": "https://example.com/actor2.jpg",
+    "image": "../../assets/images/actores/scarlet.png",
     "name": "Scarlett Johansson",
     "description":
         "Conocida por su papel como Natasha Romanoff/Black Widow en Marvel, y su actuación en dramas y ciencia ficción.",
@@ -27,7 +27,7 @@ const List<Map<String, dynamic>> actors = [
   },
   {
     "id": 3,
-    "image": "https://example.com/actor3.jpg",
+    "image": "../../assets/images/actores/dicaprio.png",
     "name": "Leonardo DiCaprio",
     "description":
         "Ganador del Oscar, famoso por su versatilidad y papeles icónicos en películas como Titanic y El Renacido.",
@@ -40,7 +40,7 @@ const List<Map<String, dynamic>> actors = [
   },
   {
     "id": 4,
-    "image": "https://example.com/actor4.jpg",
+    "image": "../../assets/images/actores/meryl.png",
     "name": "Meryl Streep",
     "description":
         "Considerada una de las mejores actrices de todos los tiempos, ganadora de múltiples premios Oscar.",
@@ -53,7 +53,7 @@ const List<Map<String, dynamic>> actors = [
   },
   {
     "id": 5,
-    "image": "https://example.com/actor5.jpg",
+    "image": "../../assets/images/actores/denzel.png",
     "name": "Denzel Washington",
     "description":
         "Actor destacado por sus papeles intensos y carismáticos, ganador de dos premios Oscar.",
@@ -66,7 +66,7 @@ const List<Map<String, dynamic>> actors = [
   },
   {
     "id": 6,
-    "image": "https://example.com/actor6.jpg",
+    "image": "../../assets/images/actores/natalie.png",
     "name": "Natalie Portman",
     "description":
         "Ganadora del Oscar, conocida por su papel en Black Swan y la franquicia Star Wars.",
