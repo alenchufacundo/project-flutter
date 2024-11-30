@@ -129,7 +129,7 @@ class HomeScreen extends StatelessWidget {
       },
       {
         'image':
-            'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Imágenes+Populares',
+            '../../assets/images/clasicos/pulpfiction.jpg',
         'name': 'Clasicos del Cine',
         'screen': ClassicMoviesScreen(onThemeChanged: onThemeChanged),
       },
