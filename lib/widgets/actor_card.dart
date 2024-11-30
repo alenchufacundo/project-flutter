@@ -6,11 +6,11 @@ class ActorCard extends StatelessWidget {
   final VoidCallback onTap; // Función que se llama cuando se hace tap en la tarjeta
 
   const ActorCard({
-    Key? key,
+    super.key,
     required this.actor,
     required this.textColor,
     required this.onTap, // Se pasa la función como parámetro
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

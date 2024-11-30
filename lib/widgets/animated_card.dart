@@ -30,7 +30,9 @@ class _AnimatedCardState extends State<AnimatedCard> {
         transform:
             _isTapped ? Matrix4.identity().scaled(0.95) : Matrix4.identity(),
         decoration: BoxDecoration(
-          color:brightness == Brightness.dark ? const Color.fromARGB(221, 66, 66, 66): Colors.cyan,
+          color: brightness == Brightness.dark
+              ? const Color.fromARGB(221, 66, 66, 66)
+              : Colors.cyan,
           borderRadius: BorderRadius.circular(8),
           boxShadow: _isTapped
               ? [
