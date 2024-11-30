@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'mock_data.dart';  // Asegúrate de tener los datos de películas
+import '../mocks/classic_mocks.dart';  // Asegúrate de tener los datos de películas
 
 class ListScreen extends StatelessWidget {
   @override

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Obtiene los datos de la película que se pasaron a través de la navegación
     final Map<String, dynamic> movie = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     return Scaffold(

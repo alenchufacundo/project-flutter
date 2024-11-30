@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/detail_populares.dart'; // Importa la nueva pantalla de detalles
-import '../widgets/populares_detail.dart'; // Importa la nueva pantalla de detalles
-import '../mocks/puntuados_mocks.dart'; // Datos mock
+import '../widgets/populares_detail.dart'; 
+import '../mocks/puntuados_mocks.dart'; 
 
 class PopularMoviesScreen extends StatelessWidget {
   final Function(bool) onThemeChanged;
@@ -39,7 +38,6 @@ class PopularMoviesScreen extends StatelessWidget {
                 style: TextStyle(color: textColor),
               ),
               onTap: () {
-                // Navega a la pantalla de detalles de la película
                 Navigator.push(
                   context,
                   MaterialPageRoute(
