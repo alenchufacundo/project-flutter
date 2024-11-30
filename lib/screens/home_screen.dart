@@ -135,7 +135,7 @@ class HomeScreen extends StatelessWidget {
       },
       {
         'image':
-            'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Mejores+Actores',
+            '../../assets/images/actores/mainactores.png',
         'name': 'Mejores Actores',
         'screen': ActorsScreen(
           onThemeChanged: onThemeChanged,
