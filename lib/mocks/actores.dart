@@ -77,4 +77,43 @@ const List<Map<String, dynamic>> actors = [
       "Star Wars: Episode I",
     ],
   },
+  {
+    "id": 7,
+    "image": "../../assets/images/actores/tom.png",
+    "name": "Tom Hanks",
+    "description":
+        "Icónico actor ganador de múltiples premios Oscar, conocido por su versatilidad y carisma.",
+    "movies": [
+      "Forrest Gump",
+      "Cast Away",
+      "Saving Private Ryan",
+      "The Terminal",
+    ],
+  },
+  {
+    "id": 8,
+    "image": "../../assets/images/actores/anne.png",
+    "name": "Anne Hathaway",
+    "description":
+        "Actriz ganadora del Oscar, famosa por sus papeles en dramas y comedias.",
+    "movies": [
+      "Les Misérables",
+      "The Dark Knight Rises",
+      "The Princess Diaries",
+      "Interstellar",
+    ],
+  },
+  {
+    "id": 9,
+    "image": "../../assets/images/actores/keanu.png",
+    "name": "Keanu Reeves",
+    "description":
+        "Actor de culto, reconocido por su papel en Matrix y la franquicia de John Wick.",
+    "movies": [
+      "The Matrix",
+      "John Wick",
+      "Speed",
+      "Constantine",
+    ],
+  },
 ];
