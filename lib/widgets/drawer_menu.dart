@@ -34,16 +34,6 @@ class DrawerMenu extends StatelessWidget {
               Navigator.pop(context); // Regresa a la pantalla actual
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.settings, color: Colors.white),
-            title: const Text(
-              'Settings',
-              style: TextStyle(color: Colors.white),
-            ),
-            onTap: () {
-              // Navega a la pantalla de configuración
-            },
-          ),
           // Agregar el Switch para cambiar el tema
           ListTile(
             title: const Text(

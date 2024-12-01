@@ -74,16 +74,6 @@ class BaseScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.settings, color: Colors.white),
-              title: Text(
-                'Settings',
-                style: TextStyle(color: textColor),
-              ),
-              onTap: () {
-                // Navega a la pantalla de configuración
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.nightlight_round, color: Colors.white),
               title: Text(
                 'Modo Oscuro',
