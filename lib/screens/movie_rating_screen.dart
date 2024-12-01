@@ -10,7 +10,7 @@ class MovieRatingScreen extends StatefulWidget {
 }
 
 class _MovieRatingScreenState extends State<MovieRatingScreen> {
-  double _userRating = 0; // Inicialización del rating del usuario.
+  double _userRating = 0;
 
   @override
   Widget build(BuildContext context) {

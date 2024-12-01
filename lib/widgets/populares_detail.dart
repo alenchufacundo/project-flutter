@@ -22,7 +22,7 @@ class MovieDetailScreen extends StatelessWidget {
                 image: AssetImage(movie['image_url']),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.5), // Oscurece la imagen para mejorar la legibilidad
+                  Colors.black.withOpacity(0.5),
                   BlendMode.darken,
                 ),
               ),

@@ -37,7 +37,7 @@ class PopularMoviesScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 8),
             child: ListTile(
               leading: ClipRRect(
-                borderRadius: BorderRadius.circular(8), // Bordes redondeados
+                borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
                   movie['image_url'],
                   width: 50,
