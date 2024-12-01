@@ -11,13 +11,13 @@ class MovieDetailScreen extends StatefulWidget {
 
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   double _rating = 0; 
-  TextEditingController _commentController =
+  final TextEditingController _commentController =
       TextEditingController(); 
 
   void _sendComment() {
     if (_commentController.text.isNotEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Comentario enviado')),
+        const SnackBar(content: Text('Comentario enviado')),
       );
 
       _commentController.clear();
@@ -27,7 +27,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, escribe un comentario')),
+        const SnackBar(content: Text('Por favor, escribe un comentario')),
       );
     }
   }
@@ -42,8 +42,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.movie['title'], // Título de la película
-          style: TextStyle(color: Colors.white),
+          widget.movie['title'],
+          style: const TextStyle(color: Colors.white),
         ),
         backgroundColor:
             brightness == Brightness.dark ? Colors.black : Colors.cyan,
@@ -76,20 +76,20 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   children: [
                     Text(
                       'Sinopsis: ${widget.movie['synopsis']}',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      style: const TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     const SizedBox(height: 10),
                     Text(
                       'Año: ${widget.movie['year']}',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     const SizedBox(height: 10),
                     Text(
                       'Género: ${widget.movie['genre']}',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     const SizedBox(height: 20),
-                    Text(
+                    const Text(
                       'Escribe un comentario:',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
@@ -101,7 +101,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                             controller:
                                 _commentController, 
                             maxLines: 1,
-                            style: TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               hintText: "Escribe tu comentario",
                               filled: true,
@@ -119,14 +119,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                               _sendComment, 
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.cyan),
+                                WidgetStateProperty.all(Colors.cyan),
                           ),
                           child: const Text("Enviar"),
                         ),
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Text(
+                    const Text(
                       'Calificación:',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
