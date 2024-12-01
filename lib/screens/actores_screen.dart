@@ -14,6 +14,7 @@ class ActorsScreen extends StatefulWidget {
 }
 
 class _ActorsScreenState extends State<ActorsScreen> {
+  final _formKey = GlobalKey<FormState>(); // Clave para manejar el formulario
   String searchQuery = '';
   List<Map<String, dynamic>> filteredActors = [];
 
@@ -50,31 +51,45 @@ class _ActorsScreenState extends State<ActorsScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        searchQuery = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Buscar Actor/Película',
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+            child: Form(
+              key: _formKey,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      onChanged: (value) {
+                        setState(() {
+                          searchQuery = value;
+                        });
+                      },
+                      onFieldSubmitted: (value) {
+                        filterActors(); // Filtrar cuando se envía el formulario
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor, ingresa un término de búsqueda.';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Buscar Actor/Película',
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () {
-                    filterActors(); // Aplicar filtro cuando se presiona el botón
-                  },
-                ),
-              ],
+                  IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        filterActors(); // Aplicar filtro si el formulario es válido
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
