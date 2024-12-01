@@ -108,7 +108,7 @@ class HomeScreen extends StatelessWidget {
     final profiles = [
       {
         'image':
-            'https://via.placeholder.com/150/CCCCCC/FFFFFF?text=Películas+Populares',
+            '../../assets/images/populares/destacados.png',
         'name': 'Películas Populares',
         'screen': PopularMoviesScreen(onThemeChanged: onThemeChanged),
       },

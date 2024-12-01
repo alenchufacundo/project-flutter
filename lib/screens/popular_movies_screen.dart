@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../widgets/populares_detail.dart'; 
-import '../mocks/puntuados_mocks.dart'; 
+import '../widgets/populares_detail.dart';
+import '../mocks/puntuados_mocks.dart';
+import 'package:flutter_application_base/screens/movie_rating_screen.dart';
+
 
 class PopularMoviesScreen extends StatelessWidget {
   final Function(bool) onThemeChanged;
@@ -16,6 +18,15 @@ class PopularMoviesScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Películas Populares'),
         backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.cyan,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.pushNamed(context, '/add-movie');
+            },
+            tooltip: 'Agregar Película',
+          ),
+        ],
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
@@ -25,9 +36,14 @@ class PopularMoviesScreen extends StatelessWidget {
           return Card(
             margin: const EdgeInsets.symmetric(vertical: 8),
             child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.cyan,
-                child: Icon(Icons.movie, color: Colors.white),
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(8), // Bordes redondeados
+                child: Image.asset(
+                  movie['image_url'],
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                ),
               ),
               title: Text(
                 movie['title'],
@@ -41,13 +57,20 @@ class PopularMoviesScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MovieDetailScreen(movie: movie),
+                    builder: (context) => MovieRatingScreen(movie: movie),
                   ),
                 );
               },
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.cyan,
+        onPressed: () {
+          Navigator.pushNamed(context, '/add-movie');
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
