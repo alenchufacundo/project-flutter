@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Importa el paquete
-import 'animated_card.dart'; // Asegúrate de importar el archivo del widget
+import 'package:shared_preferences/shared_preferences.dart';
+import 'animated_card.dart';
 
 class ActorDetailScreen extends StatefulWidget {
   final Map<String, dynamic> actor;
 
   const ActorDetailScreen({super.key, required this.actor});
 
+  //state como en react.
   @override
   _ActorDetailScreenState createState() => _ActorDetailScreenState();
 }
@@ -20,16 +21,15 @@ class _ActorDetailScreenState extends State<ActorDetailScreen> {
     _loadFavoriteStatus(); // Cargar el estado guardado al iniciar
   }
 
-  // Función para cargar el estado de favorito desde SharedPreferences
+  // Función para cargar el estado de favorito 
   Future<void> _loadFavoriteStatus() async {
     final prefs = await SharedPreferences.getInstance();
-    // Usamos el nombre del actor como clave única para guardar su estado
     setState(() {
       isFavorite = prefs.getBool(widget.actor['name']) ?? false;
     });
   }
 
-  // Función para guardar el estado de favorito en SharedPreferences
+  // Función para guardar el estado de favorito y q persista
   Future<void> _saveFavoriteStatus(bool value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(widget.actor['name'], value);
@@ -116,7 +116,7 @@ class _ActorDetailScreenState extends State<ActorDetailScreen> {
                       setState(() {
                         isFavorite = value;
                       });
-                      _saveFavoriteStatus(value); // Guardar el estado cuando cambia
+                      _saveFavoriteStatus(value); 
                     },
                   ),
                 ],

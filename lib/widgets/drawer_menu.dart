@@ -31,7 +31,7 @@ class DrawerMenu extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             onTap: () {
-              Navigator.pop(context); // Regresa a la pantalla actual
+              Navigator.pop(context);
             },
           ),
           // Agregar el Switch para cambiar el tema

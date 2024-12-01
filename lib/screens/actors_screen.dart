@@ -21,7 +21,7 @@ class _ActorsScreenState extends State<ActorsScreen> {
   @override
   void initState() {
     super.initState();
-    // Inicializamos la lista filtrada con todos los actores
+
     filteredActors = actors;
   }
 
@@ -84,7 +84,7 @@ class _ActorsScreenState extends State<ActorsScreen> {
                     icon: Icon(Icons.search),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        filterActors(); // Aplicar filtro si el formulario es válido
+                        filterActors(); //aplica filtro
                       }
                     },
                   ),
@@ -102,16 +102,13 @@ class _ActorsScreenState extends State<ActorsScreen> {
                   actor: actor,
                   textColor: textColor,
                   onTap: () {
-                    // Navegar a la pantalla de detalles del actor
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ActorDetailScreen(actor: actor),
                       ),
                     ).then((_) {
-                      // Esto se ejecutará cuando regreses de la pantalla de detalles
                       setState(() {
-                        // Restablecer la búsqueda y mostrar todos los actores
                         searchQuery = '';
                         filteredActors = actors;
                       });
