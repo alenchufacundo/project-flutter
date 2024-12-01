@@ -1,10 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Importa el paquete
 import 'animated_card.dart'; // Asegúrate de importar el archivo del widget
 
-class ActorDetailScreen extends StatelessWidget {
+class ActorDetailScreen extends StatefulWidget {
   final Map<String, dynamic> actor;
 
   const ActorDetailScreen({super.key, required this.actor});
+
+  @override
+  _ActorDetailScreenState createState() => _ActorDetailScreenState();
+}
+
+class _ActorDetailScreenState extends State<ActorDetailScreen> {
+  bool isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavoriteStatus(); // Cargar el estado guardado al iniciar
+  }
+
+  // Función para cargar el estado de favorito desde SharedPreferences
+  Future<void> _loadFavoriteStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Usamos el nombre del actor como clave única para guardar su estado
+    setState(() {
+      isFavorite = prefs.getBool(widget.actor['name']) ?? false;
+    });
+  }
+
+  // Función para guardar el estado de favorito en SharedPreferences
+  Future<void> _saveFavoriteStatus(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(widget.actor['name'], value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +42,7 @@ class ActorDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(actor['name']),
+        title: Text(widget.actor['name']),
         backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.cyan,
       ),
       body: SingleChildScrollView(
@@ -26,12 +55,12 @@ class ActorDetailScreen extends StatelessWidget {
               Center(
                 child: CircleAvatar(
                   radius: 80,
-                  backgroundImage: NetworkImage(actor['image']),
+                  backgroundImage: NetworkImage(widget.actor['image']),
                 ),
               ),
               const SizedBox(height: 16),
               Text(
-                actor['name'],
+                widget.actor['name'],
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -40,7 +69,7 @@ class ActorDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                actor['description'],
+                widget.actor['description'],
                 style: TextStyle(fontSize: 16, color: textColor),
                 textAlign: TextAlign.center,
               ),
@@ -64,13 +93,33 @@ class ActorDetailScreen extends StatelessWidget {
                   crossAxisSpacing: 16,
                   childAspectRatio: 2,
                 ),
-                itemCount: actor['movies'].length,
+                itemCount: widget.actor['movies'].length,
                 itemBuilder: (context, index) {
                   return AnimatedCard(
-                    movieTitle: actor['movies'][index],
+                    movieTitle: widget.actor['movies'][index],
                     textColor: textColor,
                   );
                 },
+              ),
+              const SizedBox(height: 16),
+              // Switch para marcar como favorito
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '¿Es tu actor favorito?',
+                    style: TextStyle(fontSize: 18, color: textColor),
+                  ),
+                  Switch(
+                    value: isFavorite,
+                    onChanged: (bool value) {
+                      setState(() {
+                        isFavorite = value;
+                      });
+                      _saveFavoriteStatus(value); // Guardar el estado cuando cambia
+                    },
+                  ),
+                ],
               ),
             ],
           ),
