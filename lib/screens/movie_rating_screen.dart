@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-class MovieDetailScreen extends StatelessWidget {
+class MovieRatingScreen extends StatefulWidget {
   final Map<String, dynamic> movie;
 
-  const MovieDetailScreen({super.key, required this.movie});
+  const MovieRatingScreen({super.key, required this.movie});
+
+  @override
+  State<MovieRatingScreen> createState() => _MovieRatingScreenState();
+}
+
+class _MovieRatingScreenState extends State<MovieRatingScreen> {
+  double _userRating = 0; // Inicialización del rating del usuario.
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +18,7 @@ class MovieDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(movie['title']),
+        title: Text(widget.movie['title']),
         backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.cyan,
       ),
       body: Stack(
@@ -19,10 +26,10 @@ class MovieDetailScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(movie['image_url']),
+                image: AssetImage(widget.movie['image_url']),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.5), // Oscurece la imagen para mejorar la legibilidad
+                  Colors.black.withOpacity(0.5),
                   BlendMode.darken,
                 ),
               ),
@@ -35,7 +42,7 @@ class MovieDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    movie['title'],
+                    widget.movie['title'],
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 32,
@@ -44,7 +51,7 @@ class MovieDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Puntuación: ${movie['vote_average']}',
+                    'Puntuación: ${widget.movie['vote_average']}',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -52,7 +59,7 @@ class MovieDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Votos: ${movie['vote_count']}',
+                    'Votos: ${widget.movie['vote_count']}',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -69,10 +76,43 @@ class MovieDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    movie['description'],
+                    widget.movie['description'],
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  Text(
+                    '¿Cuánto te gustó esta película?',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Slider(
+                    value: _userRating,
+                    min: 0,
+                    max: 10,
+                    divisions: 10,
+                    label: _userRating.toString(),
+                    activeColor: Colors.amber,
+                    inactiveColor: Colors.white70,
+                    onChanged: (value) {
+                      setState(() {
+                        _userRating = value;
+                      });
+                    },
+                  ),
+                  Center(
+                    child: Text(
+                      'Tu puntuación: ${_userRating.toStringAsFixed(1)}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],

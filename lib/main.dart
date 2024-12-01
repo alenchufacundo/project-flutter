@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_base/helpers/preferences.dart';
 import 'screens/home_screen.dart';
+import 'screens/add_movie_form_screen.dart'; // Importa la nueva pantalla
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Preferences.initShared(); 
-  runApp(MyApp()); 
+  await Preferences.initShared();
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -39,7 +40,8 @@ class _MyAppState extends State<MyApp> {
       themeMode: _isDarkMode ? ThemeMode.dark : ThemeMode.light,
       initialRoute: '/home',
       routes: {
-        '/home': (context) => HomeScreen(onThemeChanged: _toggleTheme)
+        '/home': (context) => HomeScreen(onThemeChanged: _toggleTheme),
+        '/add-movie': (context) => AddMovieFormScreen(), // Nueva ruta para agregar películas
       },
     );
   }
