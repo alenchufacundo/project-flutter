@@ -1,125 +1,144 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MovieRatingScreen extends StatefulWidget {
-  final Map<String, dynamic> movie;
+  final int movieId; // Ahora solo recibimos el ID de la película.
 
-  const MovieRatingScreen({super.key, required this.movie});
+  const MovieRatingScreen({super.key, required this.movieId});
 
   @override
   State<MovieRatingScreen> createState() => _MovieRatingScreenState();
 }
 
 class _MovieRatingScreenState extends State<MovieRatingScreen> {
-  double _userRating = 0; // Inicialización del rating del usuario.
+  Map<String, dynamic>? movieDetails; // Detalles de la película.
+  bool isLoading = true;
+  double _userRating = 0; // Puntuación del usuario.
+  final TextEditingController _commentController = TextEditingController(); // Controlador del comentario.
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMovieDetails();
+  }
+
+  Future<void> fetchMovieDetails() async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:3000/puntuados/${widget.movieId}'),
+      );
+      if (response.statusCode == 200) {
+        setState(() {
+          movieDetails = json.decode(response.body);
+          isLoading = false;
+        });
+      } else {
+        throw Exception('Error al cargar los detalles de la película');
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<void> enviarComentario(String comentario) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:3000/puntuados/${widget.movieId}/comentarios'),
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode({'comentario': comentario}),
+      );
+
+      if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Comentario enviado con éxito')),
+        );
+        _commentController.clear();
+      } else {
+        throw Exception('Error al enviar el comentario');
+      }
+    } catch (error) {
+      print(error);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error al enviar el comentario')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    if (isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.movie['title']),
-        backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.cyan,
+        title: Text(movieDetails!['title']),
+        backgroundColor: Colors.cyan,
       ),
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(widget.movie['image_url']),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.5),
-                  BlendMode.darken,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                movieDetails!['title'],
+                style: const TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.movie['title'],
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Puntuación: ${widget.movie['vote_average']}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Votos: ${widget.movie['vote_count']}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Descripción:',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    widget.movie['description'],
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  Text(
-                    '¿Cuánto te gustó esta película?',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Slider(
-                    value: _userRating,
-                    min: 0,
-                    max: 10,
-                    divisions: 10,
-                    label: _userRating.toString(),
-                    activeColor: Colors.amber,
-                    inactiveColor: Colors.white70,
-                    onChanged: (value) {
-                      setState(() {
-                        _userRating = value;
-                      });
-                    },
-                  ),
-                  Center(
-                    child: Text(
-                      'Tu puntuación: ${_userRating.toStringAsFixed(1)}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
+              const SizedBox(height: 16),
+              Text('Puntuación: ${movieDetails!['vote_average']}'),
+              const SizedBox(height: 32),
+              Text(
+                '¿Cuánto te gustó esta película?',
+                style: const TextStyle(fontSize: 20),
               ),
-            ),
+              Slider(
+                value: _userRating,
+                min: 0,
+                max: 10,
+                divisions: 10,
+                label: _userRating.toString(),
+                onChanged: (value) {
+                  setState(() {
+                    _userRating = value;
+                  });
+                },
+              ),
+              Text('Tu puntuación: ${_userRating.toStringAsFixed(1)}'),
+              const SizedBox(height: 32),
+              TextField(
+                controller: _commentController,
+                maxLines: 3,
+                decoration: const InputDecoration(
+                  hintText: 'Escribe tu comentario...',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  final comentario = _commentController.text;
+                  if (comentario.isNotEmpty) {
+                    enviarComentario(comentario);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('El comentario no puede estar vacío'),
+                      ),
+                    );
+                  }
+                },
+                child: const Text('Enviar Comentario'),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
