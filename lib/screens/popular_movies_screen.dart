@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../config/api_config.dart';
 
 class PopularMoviesScreen extends StatefulWidget {
-  final Function onThemeChanged; // Declaramos el parámetro onThemeChanged
+  final Function(bool) onThemeChanged; // Declara el parámetro onThemeChanged
 
-  // Constructor que acepta el parámetro onThemeChanged
-  PopularMoviesScreen({required this.onThemeChanged});
+  const PopularMoviesScreen({super.key, required this.onThemeChanged}); // Constructor que acepta onThemeChanged
 
   @override
   _PopularMoviesScreenState createState() => _PopularMoviesScreenState();
@@ -22,26 +22,42 @@ class _PopularMoviesScreenState extends State<PopularMoviesScreen> {
     fetchMovies();
   }
 
-  Future<void> fetchMovies() async {
-    try {
-      final response = await http.get(Uri.parse('http://localhost:3000/puntuados'));
-      if (response.statusCode == 200) {
-        setState(() {
-          movies = json.decode(response.body);
-          isLoading = false;
-        });
-      } else {
-        throw Exception('Error al cargar las películas populares');
-      }
-    } catch (error) {
-      print(error);
+Future<void> fetchMovies() async {
+  try {
+    final response = await http.get(Uri.parse('${ApiConfig.baseUrl}/puntuados'));
+    if (response.statusCode == 200) {
+      final decodedData = json.decode(response.body);  // Decodificar la respuesta JSON
+      setState(() {
+        movies = decodedData['data']; // Acceder al campo 'data' que contiene la lista de películas
+        isLoading = false;
+      });
+    } else {
+      throw Exception('Error al cargar las películas populares');
     }
+  } catch (error) {
+    print(error);
   }
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Películas Populares')),
+      appBar: AppBar(
+        title: const Text('Películas Populares'),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Theme.of(context).brightness == Brightness.dark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+            ),
+            onPressed: () {
+              // Cambia el tema usando el callback onThemeChanged
+              widget.onThemeChanged(Theme.of(context).brightness != Brightness.dark);
+            },
+          ),
+        ],
+      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
