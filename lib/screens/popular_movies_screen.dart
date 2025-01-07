@@ -4,9 +4,9 @@ import 'dart:convert';
 import '../config/api_config.dart';
 
 class PopularMoviesScreen extends StatefulWidget {
-  final Function(bool) onThemeChanged; // Declara el parámetro onThemeChanged
+  final Function(bool) onThemeChanged;
 
-  const PopularMoviesScreen({super.key, required this.onThemeChanged}); // Constructor que acepta onThemeChanged
+  const PopularMoviesScreen({super.key, required this.onThemeChanged});
 
   @override
   _PopularMoviesScreenState createState() => _PopularMoviesScreenState();
@@ -26,9 +26,9 @@ Future<void> fetchMovies() async {
   try {
     final response = await http.get(Uri.parse('${ApiConfig.baseUrl}/puntuados'));
     if (response.statusCode == 200) {
-      final decodedData = json.decode(response.body);  // Decodificar la respuesta JSON
+      final decodedData = json.decode(response.body); 
       setState(() {
-        movies = decodedData['data']; // Acceder al campo 'data' que contiene la lista de películas
+        movies = decodedData['data'];
         isLoading = false;
       });
     } else {
