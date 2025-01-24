@@ -16,7 +16,7 @@ class PopularMoviesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Películas Populares'),
+        title: const Text('Películas'),
         backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.cyan,
         actions: [
           IconButton(
@@ -24,7 +24,7 @@ class PopularMoviesScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, '/add-movie');
             },
-            tooltip: 'Agregar Película',
+            tooltip: 'Agregar',
           ),
         ],
       ),

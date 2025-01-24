@@ -5,10 +5,11 @@ import 'package:flutter_application_base/screens/actors_screen.dart';
 import 'package:flutter_application_base/widgets/HoverProfile.dart';
 import 'popular_movies_screen.dart';
 
-import 'movie_detail_list_screen.dart'; 
+import 'movie_detail_list_screen.dart';
+
 // Estructura base para todas las pantallas
 class BaseScreen extends StatelessWidget {
-  final Widget body; 
+  final Widget body;
   final Function(bool) onThemeChanged; // Función para el cambio de tema
 
   const BaseScreen(
@@ -107,31 +108,33 @@ class HomeScreen extends StatelessWidget {
 
     final profiles = [
       {
-        'image':
-            '../../assets/images/populares/destacados.png',
-        'name': 'Películas Populares',
+        'image': '../../assets/images/populares/destacados.png',
+        'name': 'Películas',
         'screen': PopularMoviesScreen(onThemeChanged: onThemeChanged),
       },
       {
-        'image':
-            '../../assets/images/detalle/parasite.jpg',
+        'image': '../../assets/images/detalle/parasite.jpg',
         'name': 'Detalle de peliculas',
         'screen': MovieDetailListScreen(onThemeChanged: onThemeChanged),
       },
-      
+
       {
-        'image':
-            '../../assets/images/clasicos/pulpfiction.jpg',
+        'image': '../../assets/images/clasicos/pulpfiction.jpg',
         'name': 'Clasicos del Cine',
         'screen': ClassicMoviesScreen(onThemeChanged: onThemeChanged),
       },
       {
-        'image':
-            '../../assets/images/actores/mainactores.png',
+        'image': '../../assets/images/actores/mainactores.png',
         'name': 'Mejores Actores',
         'screen': ActorsScreen(
           onThemeChanged: onThemeChanged,
         ),
+      },
+      // Nueva entrada "API"
+      {
+        'image': '../../assets/images/api/api.png',
+        'name': 'API - Datos reales',
+        'screen': ApiScreen(onThemeChanged: onThemeChanged),
       },
     ];
 
@@ -155,8 +158,8 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 5,
                 childAspectRatio: 1,
               ),
               itemCount: profiles.length,
@@ -184,6 +187,33 @@ class HomeScreen extends StatelessWidget {
 }
 
 // Pantallas individuales
+
+// Pantalla API
+class ApiScreen extends StatelessWidget {
+  final Function(bool) onThemeChanged;
+
+  const ApiScreen({super.key, required this.onThemeChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseScreen(
+      onThemeChanged: onThemeChanged,
+      body: Center(
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.symmetric(
+                horizontal: 40, vertical: 20), // Aumenta el padding
+            textStyle: TextStyle(fontSize: 24), // Aumenta el tamaño del texto
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/peliculas-populares');
+          },
+          child: Text('Películas Populares'),
+        ),
+      ),
+    );
+  }
+}
 
 class TrendingMoviesScreen extends StatelessWidget {
   final Function(bool) onThemeChanged;
@@ -226,6 +256,7 @@ class BestActorsScreen extends StatelessWidget {
     );
   }
 }
+
 class MovieDetailScreen extends StatelessWidget {
   final Function(bool) onThemeChanged;
 
