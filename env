@@ -1,0 +1,4 @@
+
+# CREAR ARCHIVO .env en assets/env/
+# DEFINIR URL BASE DEL BACK
+API_URL={URL}

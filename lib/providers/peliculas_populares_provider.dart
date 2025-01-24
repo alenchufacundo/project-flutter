@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_application_base/models/peliculas_populares.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-const API_URL = 'http://localhost:3000';
+// const API_URL = 'http://localhost:3000';
 
 class PeliculasPopularesProvider with ChangeNotifier {
-  final String _baseUrl = API_URL; // Variable de entorno
+  final String? _baseUrl = dotenv.env['API_URL']; // Variable de entorno
   List<Movie> _popularMovies = [];
 
   List<Movie> get popularMovies => _popularMovies;
@@ -22,7 +23,7 @@ class PeliculasPopularesProvider with ChangeNotifier {
           _popularMovies =
               results.map((movie) => Movie.fromJson(movie)).toList();
           notifyListeners();
-          print("entro aca");
+          // print("entro aca");
         } else {
           throw Exception('No data found');
         }
