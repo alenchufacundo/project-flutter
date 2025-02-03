@@ -1,4 +1,4 @@
 
 # CREAR ARCHIVO .env en assets/env/
-# DEFINIR URL BASE DEL BACK
+# DEFINIR URL BASE DEL BACK -> URL DE API EN RENDER -> https://proyecto-labo-iv-2.onrender.com
 API_URL={URL}
