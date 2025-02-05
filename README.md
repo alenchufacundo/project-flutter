@@ -1,55 +1,57 @@
-Proyecto Laboratorio IV
+# Proyecto Flutter - Películas Top Rated
 
-Introducción
+Este es un proyecto Flutter que consume una API desarrollada en Node.js para mostrar las películas mejor puntuadas (Top Rated). La aplicación utiliza diferentes herramientas de Flutter como **FutureBuilder**, **Provider**, y **SharedPreferences** para mejorar la experiencia del usuario y la gestión del estado.
 
-Este proyecto es una aplicación móvil desarrollada con Flutter como parte del Trabajo Práctico N°2 de la materia Laboratorio 4. La aplicación incluye diversas funcionalidades diseñadas para cumplir con los objetivos académicos de la asignatura, tales como la implementación de navegación, manejo de estados, y desarrollo de interfaces modernas con soporte para temas oscuros y claros.
+## Requisitos
 
-Funcionalidades
-Pantalla de inicio (Home Screen).
-Perfil de usuario con cambio de tema (Dark/Light).
-Menú lateral (Drawer Menu).
-Listado de registros con datos mockeados o estáticos.
-Detalle de un registro con formulario que incluye:
-TextFormField.
-Switch/Checkbox.
-Imagen asociada al registro.
-Navegación entre pantallas mediante rutas.
+- Flutter 3.x o superior
+- Dart 2.x o superior
+- Node.js (si deseas levantar la API localmente)
 
-Tecnologías Utilizadas
+## Características
 
-Framework: Flutter
-Lenguaje: Dart
-Entorno: Android Studio, Visual Studio Code
-Gestión de dependencias: pubspec.yaml
-Plataformas soportadas: Android e iOS
+- Conexión con una API en Node.js para obtener datos de películas.
+- Visualización de películas con su imagen de cartelera, título, votos y calificación promedio.
+- Gestión del estado utilizando el paquete `provider`.
+- Carga asíncrona de datos mediante `FutureBuilder`.
+- Uso de variables de entorno a través del paquete `flutter_dotenv`.
+- Almacenamiento de preferencias del usuario utilizando `SharedPreferences` (opcional).
+  
+## Instalación
 
-Pantallas:
+### 1. Clonar el Repositorio
 
-Peliculas Populares: Bayon Marcos (21.854)
-Detalle de Peliculas: Hernandez Joaquin (21.567)
-Clásicos del Cine: Marziani Eros (21.987)
-Mejores Actores: Rios Facundo (21.912)
+Primero, clona el repositorio en tu máquina local:
 
+```bash
+git clone https://github.com/alenchufacundo/project-flutter.git
+cd project-flutter
 
-Instalación y Configuración
+### 2. Asegurate de cargar las dependencias 
+En la consola flutter pub get
 
-Clona el repositorio:
-git clone https://github.com/alenchufacundo/project-flutter.git 
-Instala las dependencias:
-flutter pub get
-Ejecuta la aplicación:
-flutter run
+### 3. Configuración de variables de entorno
+El proyecto utiliza un archivo .env para configurar la URL de la API. Asegúrate de que el archivo .env se encuentre en la carpeta assets/env y contenga la siguiente línea:
 
+API_URL='https://proyecto-labo-iv-2.onrender.com'
 
-Cómo Probarlo:
+### 4. Ejecutar la aplicacion
+En la consola flutter run
 
-Ejecuta el comando flutter run y selecciona [1]: Chrome (chrome)
-Créditos:
-Proyecto desarrollado por:
-Marziani Eros
-Hernandez Jorquera Joaquin
-Rios Facundo
-Bayon Marcos
-	
+Estructura del Proyecto
+
+lib/
+│
+├── models/
+│   └── movie.dart           # Modelo de datos de película
+│
+├── providers/
+│   └── movie_provider.dart  # Proveedor que gestiona el estado de las películas
+│
+├── screens/
+│   └── TopRatedMoviesScreen.dart # Pantalla que muestra las películas
+│
+└── main.dart                # Punto de entrada de la aplicación
+
 
 
