@@ -38,7 +38,7 @@ API_URL='https://proyecto-labo-iv-2.onrender.com'
 ### 4. Ejecutar la aplicacion
 En la consola flutter run
 
-Estructura del Proyecto
+## Estructura del Proyecto
 
 lib/
 │
