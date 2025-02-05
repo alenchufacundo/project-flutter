@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_base/helpers/preferences.dart';
-import 'package:flutter_application_base/screens/movie_list_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_application_base/providers/movie_provider.dart';
+import 'providers/movie_provider.dart';
+import 'screens/api/TopRatedMoviesScreen.dart';
 import 'screens/home_screen.dart';
-import 'screens/add_movie_form_screen.dart';
+import 'helpers/preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env"); // Carga el archivo de configuración
+
+  // Cargar variables de entorno
+  await dotenv.load(fileName: "assets/env/.env");
+
+  // Inicializar preferencias
   await Preferences.initShared();
+
   runApp(MyApp());
 }
-
 
 class MyApp extends StatefulWidget {
   @override
@@ -39,7 +42,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MovieProvider()..fetchMovies(),
+      create: (context) => MovieProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Movie App',
@@ -49,8 +52,11 @@ class _MyAppState extends State<MyApp> {
         initialRoute: '/home',
         routes: {
           '/home': (context) => HomeScreen(onThemeChanged: _toggleTheme),
-          '/add-movie': (context) => AddMovieFormScreen(),
-          '/movie-list': (context) => MovieListScreen(),
+          '/puntuados': (context) {
+            final provider = Provider.of<MovieProvider>(context, listen: false);
+            provider.fetchMovies(); // Asegúrate de que solo se llame una vez
+            return TopRatedMoviesScreen(onThemeChanged: _toggleTheme);
+          },
         },
       ),
     );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_base/helpers/preferences.dart';
+import 'package:flutter_application_base/screens/api/TopRatedMoviesScreen.dart';
 import 'package:flutter_application_base/screens/clasic_movies_screen.dart';
 import 'package:flutter_application_base/screens/actors_screen.dart';
 import 'package:flutter_application_base/widgets/HoverProfile.dart';
-import 'popular_movies_screen.dart';
 
 import 'movie_detail_list_screen.dart'; 
 // Estructura base para todas las pantallas
@@ -107,10 +107,9 @@ class HomeScreen extends StatelessWidget {
 
     final profiles = [
       {
-        'image':
-            '../../assets/images/populares/destacados.png',
-        'name': 'Películas Populares',
-        'screen': PopularMoviesScreen(onThemeChanged: onThemeChanged),
+        'image': '../../assets/images/populares/7.jpg',
+        'name': 'Puntuadas Top',
+        'screen': TopRatedMoviesScreen(onThemeChanged: onThemeChanged),
       },
       {
         'image':

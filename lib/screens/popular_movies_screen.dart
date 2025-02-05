@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/populares_detail.dart';
 import '../mocks/puntuados_mocks.dart';
 import 'package:flutter_application_base/screens/movie_rating_screen.dart';
 
